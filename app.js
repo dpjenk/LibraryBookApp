@@ -59,9 +59,9 @@ document.querySelector('#book-list').addEventListener('click', function(e) {
     deleteBook(e.target)
 });
         
-function deleteBook(e) {
-    if(e.classList.contains('trash')) {
-        e.parentElement.parentElement.remove();
+function deleteBook(el) {   //EL IS THE ELEMENT WHICH IS THE ENTIRE TABLE ROW
+    if(el.classList.contains('trash')) {
+        el.parentElement.parentElement.remove(); //NEED PARENT ELEMENT TWICE TO DELETE ENTIRE ROW
     }
 }
 
