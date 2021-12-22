@@ -14,7 +14,7 @@ submit.addEventListener('click', function(e) {
     e.preventDefault();  // Prevents actual submit
 
     if(title.value === '' || author.value === '' || pages.value === '') {
-        alert("Please complete all fields");
+        showAlert('Please complete all fields', 'danger');
     } else {
         const newRow = document.createElement('tr');
         list.appendChild(newRow);
@@ -41,18 +41,36 @@ submit.addEventListener('click', function(e) {
         
         const newTrashColumn = document.createElement('td');
         newRow.appendChild(newTrashColumn);
-        newTrashColumn.insertAdjacentHTML('beforeend', '<i class="far fa-trash-alt trash"></i>');
+        newTrashColumn.insertAdjacentHTML('beforeend', '<i class="far fa-trash-alt trash"></i>');  
+        
+        showAlert('Book Added', 'success');
     }
 
+    
+// ALERT MESSAGE DISPLAYED ON FORM RATHER THAN POP-UP ALERT MESSAGE
+    function showAlert(message, className) {
+        const div = document.createElement('div');
+        div.className = `alert alert-${className}`;
+        div.appendChild(document.createTextNode(message));
+        const container = document.querySelector('.container');
+        const form = document.querySelector('#book-form');
+        container.insertBefore(div, form);
+
+         // REMOVES ALERT MESSAGE IN 3 SECONDS
+    setTimeout(() => document.querySelector('.alert').remove(), 3000);
+    }
+
+    
     // CLEAR ALL INPUT FIELDS AFTER SUBMISSION
  title.value = '';
  author.value = '';
  pages.value = '';
  checkbox.checked = false;
-
-   
+  
 });
- 
+
+
+
 // DELETE BOOK INFO FROM BOOK LIST
 
 document.querySelector('#book-list').addEventListener('click', function(e) {
