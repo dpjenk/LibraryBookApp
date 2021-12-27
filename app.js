@@ -6,7 +6,6 @@ const pages = document.querySelector("#pages");
 const checkbox = document.querySelector("#checkbox");
 const submit = document.querySelector(".btn");
 const list = document.querySelector("#book-list");
-const trash = document.querySelector(".trash"); 
 
 // ADD EVENT LISTENER
 
@@ -44,9 +43,22 @@ submit.addEventListener('click', function(e) {
         newTrashColumn.insertAdjacentHTML('beforeend', '<i class="far fa-trash-alt trash"></i>');  
         
         showAlert('Book Added', 'success');
+        
     }
-
     
+    // DELETE BOOK INFO FROM BOOK LIST
+    document.querySelector('#book-list').addEventListener('click', function(e) {
+        e.stopImmediatePropagation(); // ADDED TO STOP MESSAGE FROM BEING DISPLAYED TWICE. FOUND THIS ON INTERNET SEARCH TO SOLVE DUPLICATE PROBLEM. THIS METHOD PREVENTS OTHER LISTENERS OF THE SAME EVENT FROM BEING CALLED.
+        deleteBook(e.target); 
+        showAlert('Book Deleted', 'success');
+    
+    function deleteBook(e) {   //EL IS THE ELEMENT WHICH IS THE ENTIRE TABLE ROW
+        if(e.classList.contains('trash')) {
+            e.parentElement.parentElement.remove(); //NEED PARENT ELEMENT TWICE TO DELETE ENTIRE ROW          
+            } 
+        }   
+         
+}); 
 // ALERT MESSAGE DISPLAYED ON FORM RATHER THAN POP-UP ALERT MESSAGE
     function showAlert(message, className) {
         const div = document.createElement('div');
@@ -56,9 +68,10 @@ submit.addEventListener('click', function(e) {
         const form = document.querySelector('#book-form');
         container.insertBefore(div, form);
 
-         // REMOVES ALERT MESSAGE IN 3 SECONDS
-    setTimeout(() => document.querySelector('.alert').remove(), 3000);
+         // REMOVES ALERT MESSAGE IN 2 SECONDS
+    setTimeout(() => document.querySelector('.alert').remove(), 2000);
     }
+
 
     
     // CLEAR ALL INPUT FIELDS AFTER SUBMISSION
@@ -66,20 +79,10 @@ submit.addEventListener('click', function(e) {
  author.value = '';
  pages.value = '';
  checkbox.checked = false;
-  
+
 });
 
 
 
-// DELETE BOOK INFO FROM BOOK LIST
 
-document.querySelector('#book-list').addEventListener('click', function(e) {
-    deleteBook(e.target)
-});
-        
-function deleteBook(el) {   //EL IS THE ELEMENT WHICH IS THE ENTIRE TABLE ROW
-    if(el.classList.contains('trash')) {
-        el.parentElement.parentElement.remove(); //NEED PARENT ELEMENT TWICE TO DELETE ENTIRE ROW
-    }
-}
 
