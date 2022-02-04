@@ -42,6 +42,7 @@ submit.addEventListener('click', function(e) {
         newRow.appendChild(newTrashColumn);
         newTrashColumn.insertAdjacentHTML('beforeend', '<i class="far fa-trash-alt trash"></i>');  
         
+        // DISPLAY SUCCESS MESSAGE
         showAlert('Book Added', 'success');
         
     }
@@ -50,15 +51,16 @@ submit.addEventListener('click', function(e) {
     document.querySelector('#book-list').addEventListener('click', function(e) {
         e.stopImmediatePropagation(); // ADDED TO STOP MESSAGE FROM BEING DISPLAYED TWICE. FOUND THIS ON INTERNET SEARCH TO SOLVE DUPLICATE PROBLEM. THIS METHOD PREVENTS OTHER LISTENERS OF THE SAME EVENT FROM BEING CALLED.
         deleteBook(e.target); 
+
+        // DISPLAY SUCCESS MESSAGE
         showAlert('Book Deleted', 'success');
     
     function deleteBook(e) {   //EL IS THE ELEMENT WHICH IS THE ENTIRE TABLE ROW
         if(e.classList.contains('trash')) {
             e.parentElement.parentElement.remove(); //NEED PARENT ELEMENT TWICE TO DELETE ENTIRE ROW          
             } 
-        }   
-         
-}); 
+        }          
+    }); 
 // ALERT MESSAGE DISPLAYED ON FORM RATHER THAN POP-UP ALERT MESSAGE
     function showAlert(message, className) {
         const div = document.createElement('div');
@@ -71,18 +73,11 @@ submit.addEventListener('click', function(e) {
          // REMOVES ALERT MESSAGE IN 2 SECONDS
     setTimeout(() => document.querySelector('.alert').remove(), 2000);
     }
-
-
     
     // CLEAR ALL INPUT FIELDS AFTER SUBMISSION
- title.value = '';
- author.value = '';
- pages.value = '';
- checkbox.checked = false;
+    title.value = '';
+    author.value = '';
+    pages.value = '';
+    checkbox.checked = false;
 
 });
-
-
-
-
-
